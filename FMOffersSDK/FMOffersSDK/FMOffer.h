@@ -16,10 +16,13 @@
 @property (nonatomic) int offerId;
 @property (nonatomic, strong) NSString *teaser;
 @property (nonatomic, strong) NSString *requiredActions;
-@property (nonatomic, strong) NSURL *link;
+@property (nonatomic, strong) NSString *linkString;
 @property (nonatomic, strong) NSArray *offerTypes;
 @property (nonatomic, strong) FMThumbnail *thumbnail;
 @property (nonatomic) int payout;
 @property (nonatomic, strong) FMTimeToPayout *timeToPayout;
+
+
+- (id)initWithJSONObject:(NSDictionary*)jsonObject;
 
 @end

@@ -13,4 +13,7 @@
 @property (nonatomic) int amount;
 @property (nonatomic, strong) NSString *readable;
 
+
+- (id)initWithJSONObject:(NSDictionary*)jsonObject;
+
 @end

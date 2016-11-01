@@ -13,4 +13,6 @@
 @property (nonatomic) int offerTypeId;
 @property (nonatomic, strong) NSString *readable;
 
+- (id)initWithJSONObject:(NSDictionary*)jsobObject;
+
 @end

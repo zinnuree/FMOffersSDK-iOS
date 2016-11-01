@@ -10,4 +10,15 @@
 
 @implementation FMTimeToPayout
 
+
+- (id)initWithJSONObject:(NSDictionary *)jsonObject {
+    
+    if (self = [super init]) {
+        self.amount     = [[jsonObject objectForKey:@"amount"] intValue];
+        self.readable   = [jsonObject objectForKey:@"readable"];
+    }
+    
+    return self;
+}
+
 @end

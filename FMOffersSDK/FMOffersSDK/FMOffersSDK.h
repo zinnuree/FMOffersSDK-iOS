@@ -23,3 +23,5 @@ FOUNDATION_EXPORT const unsigned char FMOffersSDKVersionString[];
 #import <FMOffersSDK/FMThumbnail.h>
 #import <FMOffersSDK/FMOfferType.h>
 #import <FMOffersSDK/FMTimeToPayout.h>
+#import <FMOffersSDK/NSString+SHA1.h>
+

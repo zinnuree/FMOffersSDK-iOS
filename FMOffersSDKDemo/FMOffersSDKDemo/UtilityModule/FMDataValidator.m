@@ -23,6 +23,7 @@ NSString *const FMValidationErrorDomain = @"com.fyber.test.validationerror";
         NSDictionary *userInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"Invalid user ID.", nil),
                                    NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"User ID is nil", nil),
                                    NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Please enter user ID", nil)};
+        
         *errorPointer = [NSError errorWithDomain:FMValidationErrorDomain code:-1 userInfo:userInfo];
         
         return NO;

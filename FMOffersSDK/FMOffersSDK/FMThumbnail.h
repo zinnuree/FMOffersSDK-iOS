@@ -13,4 +13,6 @@
 @property (nonatomic, strong) NSString *lowResolutionURLString;
 @property (nonatomic, strong) NSString *highResolutionURLString;
 
+- (id)initWithJSONObject:(NSDictionary*)jsonObject;
+
 @end

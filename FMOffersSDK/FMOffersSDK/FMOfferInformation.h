@@ -17,4 +17,7 @@
 @property (nonatomic, strong) NSString *language;
 @property (nonatomic, strong) NSString *supportUrlString;
 
+
+- (id)initWithJSONObject:(NSDictionary *)jsonObject;
+
 @end

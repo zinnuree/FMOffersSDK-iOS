@@ -155,18 +155,39 @@ static BOOL initialized = NO;
         }
         
         if (response == nil) {
-            //TODO: return error
+            //return error
+            NSDictionary *userInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"Invalid respone.", nil),
+                                       NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"Response is nil", nil),
+                                       NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Please check with API administrator", nil)};
+            
+            NSError *error = [NSError errorWithDomain:FMOfferSDKErrorDomain code:-2 userInfo:userInfo];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                onComplete(nil, nil, nil, nil, 0, 0, error);
+            });
+            
+            return;
         }
         
         NSHTTPURLResponse *urlResponse = (NSHTTPURLResponse *)response;
+        long statusCode = urlResponse.statusCode;
         
-        if (urlResponse.statusCode != 200) {
-            //TODO: return error
+        if (statusCode != 200) {
+            //return error
+            NSDictionary *userInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"Http error.", nil),
+                                       NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat: @"HTTP Status Code: %ld", statusCode],
+                                       NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Please check with API administrator", nil)};
+            
+            NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:statusCode userInfo:userInfo];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                onComplete(nil, nil, nil, nil, 0, 0, error);
+            });
         }
         
         if (data == nil || data.length == 0) {
-            //200 No Content (correct and successful request, but no offers are available for this user)
             
+            //200 No Content (correct and successful request, but no offers are available for this user)
             dispatch_async(dispatch_get_main_queue(), ^{
                 onComplete(@[], nil, @"OK", @"OK", 0, 0, nil);
             });
@@ -199,57 +220,13 @@ static BOOL initialized = NO;
         int pages = [[jsonObject objectForKey:@"pages"] intValue];
         
         NSDictionary *informationObj = [jsonObject objectForKey:@"information"];
-        
-        FMOfferInformation *information = [[FMOfferInformation alloc] init];
-        information.appName = [informationObj objectForKey:@"app_name"];
-        information.appId = [[informationObj objectForKey:@"appid"] intValue];
-        information.virtualCurrency = [informationObj objectForKey:@"virtual_currency"];
-        information.country = [informationObj objectForKey:@"country"];
-        information.language = [informationObj objectForKey:@"language"];
-        information.supportUrlString = [informationObj objectForKey:@"support_url"];
+        FMOfferInformation *information = [[FMOfferInformation alloc] initWithJSONObject:informationObj];
         
         NSArray *offersArray = [jsonObject objectForKey:@"offers"];
         NSMutableArray *offers = [[NSMutableArray alloc] init];
         
         for (NSDictionary *offerObj in offersArray) {
-            
-            FMOffer *offer = [[FMOffer alloc] init];
-            offer.title = [offerObj objectForKey:@"title"];
-            offer.offerId = [[offerObj objectForKey:@"offer_id"] intValue];
-            offer.teaser = [offerObj objectForKey:@"teaser"];
-            offer.requiredActions = [offerObj objectForKey:@"required_actions"];
-            
-            NSString *linkStr = [offerObj objectForKey:@"link"];
-            offer.link = [NSURL URLWithString:linkStr];
-            
-            NSArray *offerTypesArray = [offerObj objectForKey:@"offer_types"];
-            NSMutableArray *offerTypes = [[NSMutableArray alloc] init];
-            
-            for (NSDictionary *offerTypeObj in offerTypesArray) {
-                FMOfferType *offerType = [[FMOfferType alloc] init];
-                offerType.offerTypeId = [[offerTypeObj objectForKey:@"offer_type_id"] intValue];
-                offerType.readable = [offerTypeObj objectForKey:@"readable"];
-                
-                [offerTypes addObject:offerType];
-            }
-            
-            offer.offerTypes = [NSArray arrayWithArray:offerTypes];
-            
-            NSDictionary *thumbnailObj = [offerObj objectForKey:@"thumbnail"];
-            FMThumbnail *thumbnail = [[FMThumbnail alloc] init];
-            thumbnail.lowResolutionURLString = [thumbnailObj objectForKey:@"lowres"];
-            thumbnail.highResolutionURLString = [thumbnailObj objectForKey:@"hires"];
-            
-            offer.thumbnail = thumbnail;
-            offer.payout = [[offerObj objectForKey:@"payout"] intValue];
-            
-            NSDictionary *payoutObj = [offerObj objectForKey:@"time_to_payout"];
-            FMTimeToPayout *timeToPayout = [[FMTimeToPayout alloc] init];
-            timeToPayout.amount = [[payoutObj objectForKey:@"amount"] intValue];
-            timeToPayout.readable = [payoutObj objectForKey:@"readable"];
-            
-            offer.timeToPayout = timeToPayout;
-            
+            FMOffer *offer = [[FMOffer alloc] initWithJSONObject:offerObj];
             [offers addObject:offer];
         }
         
@@ -332,20 +309,39 @@ static BOOL initialized = NO;
         }
         
         if (response == nil) {
-            //TODO: return error
+            //return error
+            NSDictionary *userInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"Invalid respone.", nil),
+                                       NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"Response is nil", nil),
+                                       NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Please check with API administrator", nil)};
+            
+            NSError *error = [NSError errorWithDomain:FMOfferSDKErrorDomain code:-2 userInfo:userInfo];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                onComplete(nil, nil, nil, nil, 0, error);
+            });
         }
         
         NSHTTPURLResponse *urlResponse = (NSHTTPURLResponse *)response;
+        long statusCode = urlResponse.statusCode;
         
-        if (urlResponse.statusCode != 200) {
-            //TODO: return error
+        if (statusCode != 200) {
+            //return error
+            NSDictionary *userInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"Http error.", nil),
+                                       NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat: @"HTTP Status Code: %ld", statusCode],
+                                       NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Please check with API administrator", nil)};
+            
+            NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:statusCode userInfo:userInfo];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                onComplete(nil, nil, nil, nil, 0, error);
+            });
         }
         
         if (data == nil || data.length == 0) {
-            //200 No Content (correct and successful request, but no offers are available for this user)
             
+            //200 No Content (correct and successful request, but no offers are available for this user)
             dispatch_async(dispatch_get_main_queue(), ^{
-            onComplete(@[], nil, @"OK", @"OK", 0, nil);
+                onComplete(@[], nil, @"OK", @"OK", 0, nil);
             });
             
             return;
@@ -377,57 +373,13 @@ static BOOL initialized = NO;
         int count = [[jsonObject objectForKey:@"count"] intValue];
         
         NSDictionary *informationObj = [jsonObject objectForKey:@"information"];
-        
-        FMOfferInformation *information = [[FMOfferInformation alloc] init];
-        information.appName = [informationObj objectForKey:@"app_name"];
-        information.appId = [[informationObj objectForKey:@"appid"] intValue];
-        information.virtualCurrency = [informationObj objectForKey:@"virtual_currency"];
-        information.country = [informationObj objectForKey:@"country"];
-        information.language = [informationObj objectForKey:@"language"];
-        information.supportUrlString = [informationObj objectForKey:@"support_url"];
+        FMOfferInformation *information = [[FMOfferInformation alloc] initWithJSONObject:informationObj];
         
         NSArray *offersArray = [jsonObject objectForKey:@"offers"];
         NSMutableArray *offers = [[NSMutableArray alloc] init];
         
         for (NSDictionary *offerObj in offersArray) {
-            
-            FMOffer *offer = [[FMOffer alloc] init];
-            offer.title = [offerObj objectForKey:@"title"];
-            offer.offerId = [[offerObj objectForKey:@"offer_id"] intValue];
-            offer.teaser = [offerObj objectForKey:@"teaser"];
-            offer.requiredActions = [offerObj objectForKey:@"required_actions"];
-            
-            NSString *linkStr = [offerObj objectForKey:@"link"];
-            offer.link = [NSURL URLWithString:linkStr];
-            
-            NSArray *offerTypesArray = [offerObj objectForKey:@"offer_types"];
-            NSMutableArray *offerTypes = [[NSMutableArray alloc] init];
-            
-            for (NSDictionary *offerTypeObj in offerTypesArray) {
-                FMOfferType *offerType = [[FMOfferType alloc] init];
-                offerType.offerTypeId = [[offerTypeObj objectForKey:@"offer_type_id"] intValue];
-                offerType.readable = [offerTypeObj objectForKey:@"readable"];
-                
-                [offerTypes addObject:offerType];
-            }
-            
-            offer.offerTypes = [NSArray arrayWithArray:offerTypes];
-            
-            NSDictionary *thumbnailObj = [offerObj objectForKey:@"thumbnail"];
-            FMThumbnail *thumbnail = [[FMThumbnail alloc] init];
-            thumbnail.lowResolutionURLString = [thumbnailObj objectForKey:@"lowres"];
-            thumbnail.highResolutionURLString = [thumbnailObj objectForKey:@"hires"];
-            
-            offer.thumbnail = thumbnail;
-            offer.payout = [[offerObj objectForKey:@"payout"] intValue];
-            
-            NSDictionary *payoutObj = [offerObj objectForKey:@"time_to_payout"];
-            FMTimeToPayout *timeToPayout = [[FMTimeToPayout alloc] init];
-            timeToPayout.amount = [[payoutObj objectForKey:@"amount"] intValue];
-            timeToPayout.readable = [payoutObj objectForKey:@"readable"];
-            
-            offer.timeToPayout = timeToPayout;
-            
+            FMOffer *offer = [[FMOffer alloc] initWithJSONObject:offerObj];
             [offers addObject:offer];
         }
         
