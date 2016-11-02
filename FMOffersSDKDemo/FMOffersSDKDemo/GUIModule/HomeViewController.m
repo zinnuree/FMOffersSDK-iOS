@@ -15,10 +15,9 @@
 
 @interface HomeViewController ()
 
-//Made public to allow UI test
-//@property (nonatomic, weak) IBOutlet UITextField *uidField;
-//@property (nonatomic, weak) IBOutlet UITextField *apiKeyField;
-//@property (nonatomic, weak) IBOutlet UITextField *appidField;
+@property (nonatomic, weak) IBOutlet UITextField *uidField;
+@property (nonatomic, weak) IBOutlet UITextField *apiKeyField;
+@property (nonatomic, weak) IBOutlet UITextField *appidField;
 
 @end
 

@@ -32,8 +32,10 @@ extern NSString *const FMOfferSDKErrorDomain;
  This requires no further description, as singleton is an established design pattern
 
  @return the singleton instance
+ 
  */
 + (FMOfferManager *)sharedInstance;
+
 
 // make the default init unavailable, so that developer must use the singleton approach
 //- (id)init __attribute__((unavailable("use sharedInstance")));

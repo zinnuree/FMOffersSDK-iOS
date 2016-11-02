@@ -8,11 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ The only input form for the demo application, usually shows immediate after the app is launched
+ */
 @interface OffersTableViewController : UITableViewController {
     
+    // api call state variables for the first API call
     BOOL initialLoadingInProgress;
     BOOL initialLoadingFailed;
     
+    // api call state variables for the secndary API call
     BOOL appendingInProgress;
     BOOL appendingFailed;
     
@@ -28,3 +33,4 @@
 @property (nonatomic, strong) IBOutlet UILabel *footerLabel;
 
 @end
+

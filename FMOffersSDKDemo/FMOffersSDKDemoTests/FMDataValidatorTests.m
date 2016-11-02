@@ -8,9 +8,11 @@
 
 #import <XCTest/XCTest.h>
 
+
 @interface FMDataValidatorTests : XCTestCase
 
 @end
+
 
 @implementation FMDataValidatorTests
 
@@ -24,12 +26,61 @@
     [super tearDown];
 }
 
-- (void)testExample {
-    // This is an example of a functional test case.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
+- (void)testUserIdValidation {
+    // simple valid string
+    
+    // invalid nil object
+    
+    // long valid string
+    
+    // additional spaces as prefix or suffix (valid after trimmed)
+    
+    // boundary cases
+    //userId length is exactly same to be valid
+    
+    // boundary cases
+    // userId length is just short to be valid
+    
+    // invalid characters in string
 }
 
-- (void)testPerformanceExample {
+- (void)testAppIdValidation {
+    // simple valid string
+    
+    // invalid nil object
+    
+    // long valid string
+    
+    // additional spaces as prefix or suffix (valid after trimmed)
+    
+    // boundary cases
+    //userId length is exactly same to be valid
+    
+    // boundary cases
+    // userId length is just short to be valid
+    
+    // invalid characters in string
+}
+
+- (void)testAPIKeyValidation {
+    // simple valid string
+    
+    // invalid nil object
+    
+    // long valid string
+    
+    // additional spaces as prefix or suffix (valid after trimmed)
+    
+    // boundary cases
+    //userId length is exactly same to be valid
+    
+    // boundary cases
+    // userId length is just short to be valid
+    
+    // invalid characters in string
+}
+
+- (void)testPerformance {
     // This is an example of a performance test case.
     [self measureBlock:^{
         // Put the code you want to measure the time of here.

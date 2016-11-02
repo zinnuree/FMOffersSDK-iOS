@@ -6,4 +6,15 @@ The SDK encapsulates the communication details with the Fyber Mobile Offers. It 
 
 The demo app is mainly the GUI section as suggested in the challenge description.
 
-Both projects have been developed using Xcode 8.0
+
+==============================================
+BUILD REQUIREMENTS:
+	
+Xcode 8.0
+iOS SDK 10.0
+
+==============================================
+
+RUNTIME REQUIREMENTS:
+
+Minimum iOS Version : 8.0

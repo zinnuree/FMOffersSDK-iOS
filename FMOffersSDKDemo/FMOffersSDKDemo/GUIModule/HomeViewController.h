@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+
+/**
+ The only input form for the demo application, usually shows immediate after the app is launched
+ */
 @interface HomeViewController : UITableViewController {
     
 }
 
-@property (nonatomic, weak) IBOutlet UITextField *uidField;
-@property (nonatomic, weak) IBOutlet UITextField *apiKeyField;
-@property (nonatomic, weak) IBOutlet UITextField *appidField;
 
 @end
+
