@@ -26,7 +26,6 @@
 		3805BD161DC8806000019CD0 /* FMErrorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3805BD141DC8806000019CD0 /* FMErrorTableViewCell.m */; };
 		38118A781DC8B57B0062C473 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38118A771DC8B57B0062C473 /* UIKit.framework */; };
 		38118A7A1DC8B5820062C473 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38118A791DC8B5820062C473 /* Foundation.framework */; };
-		38118A9B1DC8DB6E0062C473 /* FMOffersSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38118A961DC8DB5B0062C473 /* FMOffersSDK.framework */; };
 		38118A9C1DC8DD560062C473 /* FMDataValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3805BCC81DC8699300019CD0 /* FMDataValidator.m */; };
 		38118A9D1DC8DD590062C473 /* FMImageKeeper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3805BD101DC87B5A00019CD0 /* FMImageKeeper.m */; };
 		38118A9E1DC8DD610062C473 /* FMOfferTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3805BD0C1DC8783400019CD0 /* FMOfferTableViewCell.m */; };
@@ -43,6 +42,8 @@
 		382E74901DC7BAE5000EC0DE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 382E748E1DC7BAE5000EC0DE /* LaunchScreen.storyboard */; };
 		382E749B1DC7BAE5000EC0DE /* FMOffersSDKDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 382E749A1DC7BAE5000EC0DE /* FMOffersSDKDemoTests.m */; };
 		382E74A61DC7BAE5000EC0DE /* FMOffersSDKDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 382E74A51DC7BAE5000EC0DE /* FMOffersSDKDemoUITests.m */; };
+		385C2CAA1DCD0BDF005A59A3 /* FMOffersSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38118A961DC8DB5B0062C473 /* FMOffersSDK.framework */; };
+		385C2CAB1DCD0BDF005A59A3 /* FMOffersSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 38118A961DC8DB5B0062C473 /* FMOffersSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,7 +82,28 @@
 			remoteGlobalIDString = 382E747C1DC7BAE5000EC0DE;
 			remoteInfo = FMOffersSDKDemo;
 		};
+		385C2CAC1DCD0BDF005A59A3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 38118A8F1DC8DB5B0062C473 /* FMOffersSDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 382E74591DC7BA5C000EC0DE;
+			remoteInfo = FMOffersSDK;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		385C2CAE1DCD0BDF005A59A3 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				385C2CAB1DCD0BDF005A59A3 /* FMOffersSDK.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3805BCB71DC84CD600019CD0 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeViewController.h; path = GUIModule/HomeViewController.h; sourceTree = "<group>"; };
@@ -124,9 +146,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				38118A9B1DC8DB6E0062C473 /* FMOffersSDK.framework in Frameworks */,
 				38118A7A1DC8B5820062C473 /* Foundation.framework in Frameworks */,
 				38118A781DC8B57B0062C473 /* UIKit.framework in Frameworks */,
+				385C2CAA1DCD0BDF005A59A3 /* FMOffersSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,11 +307,13 @@
 				382E74791DC7BAE5000EC0DE /* Sources */,
 				382E747A1DC7BAE5000EC0DE /* Frameworks */,
 				382E747B1DC7BAE5000EC0DE /* Resources */,
+				385C2CAE1DCD0BDF005A59A3 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				38118A9A1DC8DB670062C473 /* PBXTargetDependency */,
+				385C2CAD1DCD0BDF005A59A3 /* PBXTargetDependency */,
 			);
 			name = FMOffersSDKDemo;
 			productName = FMOffersSDKDemo;
@@ -497,6 +521,11 @@
 			isa = PBXTargetDependency;
 			target = 382E747C1DC7BAE5000EC0DE /* FMOffersSDKDemo */;
 			targetProxy = 382E74A21DC7BAE5000EC0DE /* PBXContainerItemProxy */;
+		};
+		385C2CAD1DCD0BDF005A59A3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FMOffersSDK;
+			targetProxy = 385C2CAC1DCD0BDF005A59A3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

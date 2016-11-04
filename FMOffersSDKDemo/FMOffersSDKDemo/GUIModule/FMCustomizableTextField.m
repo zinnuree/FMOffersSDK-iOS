@@ -42,6 +42,16 @@
     self.layer.cornerRadius = self.cornerRadius;
 }
 
+// placeholder padding
+- (CGRect)textRectForBounds:(CGRect)bounds {
+    return CGRectInset(bounds, 5, 5);
+}
+
+// text padding
+- (CGRect)editingRectForBounds:(CGRect)bounds {
+    return CGRectInset(bounds, 5, 5);
+}
+
 - (void)setNeedsLayout {
     [super setNeedsLayout];
     [self setNeedsDisplay];

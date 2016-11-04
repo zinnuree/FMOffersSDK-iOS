@@ -183,6 +183,8 @@ static BOOL initialized = NO;
             dispatch_async(dispatch_get_main_queue(), ^{
                 onComplete(nil, nil, nil, nil, 0, 0, error);
             });
+            
+            return;
         }
         
         if (data == nil || data.length == 0) {
@@ -199,8 +201,21 @@ static BOOL initialized = NO;
         NSString *responseSignature = [responseHeaders objectForKey:@"X-Sponsorpay-Response-Signature"];
         NSString *hashKey = [self hashKeyForResponseData:data apiKey:self.apiKey];
         
+        // Challenge 4 : check signature
+        
         if (![responseSignature isEqualToString:hashKey]) {
-            //TODO: 
+            //return error
+            NSDictionary *userInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"Untrusted source of response", nil),
+                                       NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"Response seems to come from an unrecognized source", nil),
+                                       NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Please ignore this response", nil)};
+            
+            NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:statusCode userInfo:userInfo];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                onComplete(nil, nil, nil, nil, 0, 0, error);
+            });
+            
+            return;
         }
         
         NSError *jsonError = nil;
@@ -319,6 +334,8 @@ static BOOL initialized = NO;
             dispatch_async(dispatch_get_main_queue(), ^{
                 onComplete(nil, nil, nil, nil, 0, error);
             });
+            
+            return;
         }
         
         NSHTTPURLResponse *urlResponse = (NSHTTPURLResponse *)response;
@@ -335,6 +352,8 @@ static BOOL initialized = NO;
             dispatch_async(dispatch_get_main_queue(), ^{
                 onComplete(nil, nil, nil, nil, 0, error);
             });
+            
+            return;
         }
         
         if (data == nil || data.length == 0) {
@@ -352,8 +371,21 @@ static BOOL initialized = NO;
         NSString *responseSignature = [responseHeaders objectForKey:@"X-Sponsorpay-Response-Signature"];
         NSString *hashKey = [self hashKeyForResponseData:data apiKey:self.apiKey];
         
+        // Challenge 4 : check signature
+        
         if (![responseSignature isEqualToString:hashKey]) {
-            //TODO:
+            //return error
+            NSDictionary *userInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"Untrusted source of response", nil),
+                                       NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"Response seems to come from an unrecognized source", nil),
+                                       NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Please ignore this response", nil)};
+            
+            NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:statusCode userInfo:userInfo];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                onComplete(nil, nil, nil, nil, 0, error);
+            });
+            
+            return;
         }
         
         NSError *jsonError = nil;
@@ -395,6 +427,9 @@ static BOOL initialized = NO;
     NSURLSessionDataTask *dataTask = [session dataTaskWithURL:url completionHandler:completionHandler];
     [dataTask resume];
 }
+
+
+#pragma mark - Private methods
 
 - (NSString*)hashKeyForResponseData:(NSData*)data apiKey:(NSString*)apiKey {
     

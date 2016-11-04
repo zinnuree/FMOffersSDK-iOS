@@ -21,13 +21,30 @@
     BOOL appendingInProgress;
     BOOL appendingFailed;
     
+    // current page index, starting from 1
     int currentPage;
+    
+    // the editable list of offers
     NSMutableArray *offers;
 }
 
+/**
+ The user id (uid in both API call and in the input UI)
+ */
 @property (nonatomic, strong) NSString *userId;
+
+/**
+ The api key (apikey in the API call and in the input UI)
+ */
 @property (nonatomic, strong) NSString *apiKey;
+
+/**
+ The app id
+ */
 @property (nonatomic, strong) NSString *appId;
+
+
+#pragma mark - Interface builder outlets
 
 @property (nonatomic, strong) IBOutlet UIView *footerView;
 @property (nonatomic, strong) IBOutlet UILabel *footerLabel;

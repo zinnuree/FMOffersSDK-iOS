@@ -53,6 +53,7 @@
     
     self.navigationItem.title = @"Offers";
     
+    // the footer view from storyboard usually should not be there
     [self.footerView removeFromSuperview];
     
     // must do it before making any call to the SDK
@@ -84,11 +85,11 @@
         if (error) {
             initialLoadingFailed = YES;
             self.errorMessage = error.localizedDescription;
-            return;
         }
-        
-        self.pageCount = pageCount;
-        [offers addObjectsFromArray:offersArray];
+        else {
+            self.pageCount = pageCount;
+            [offers addObjectsFromArray:offersArray];
+        }
         
         [self.tableView reloadData];
     };
@@ -122,11 +123,11 @@
         if (error) {
             appendingFailed = YES;
             self.errorMessage = error.localizedDescription;
-            return;
         }
-        
-        currentPage += 1;
-        [offers addObjectsFromArray:offersArray];
+        else {
+            currentPage += 1;
+            [offers addObjectsFromArray:offersArray];
+        }
         
         [self.tableView reloadData];
     };
@@ -236,12 +237,16 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    // whether the first page is loading
     if (initialLoadingInProgress) {
+        // show the initial loading cell
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"loadingCell"];
         return cell;
     }
     
+    // failed to load the first page
     if (initialLoadingFailed) {
+        // show failed
         FMErrorTableViewCell *cell = (FMErrorTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"errorCell"];
         cell.errorMessageLabel.text = self.errorMessage;
         return cell;
@@ -262,14 +267,18 @@
     cell.teaserLabel.text = offer.teaser;
     cell.payoutLabel.text = [NSString stringWithFormat:@"Payout: %d", offer.payout];
     
-    UIImage *thumbnail = [[FMImageKeeper sharedInstance] imageForOfferId:0];
+    UIImage *thumbnail = [[FMImageKeeper sharedInstance] imageForOfferId:offer.offerId];
+//    NSLog(@"Offer ID: %d", offer.offerId);
+    
     if (thumbnail) {
         cell.thumbnailView.image = thumbnail;
     }
     else {
         
         //asychronously download thumbnail image, also cache image to avoid frequent download
-        [[FMImageKeeper sharedInstance] downloadImageForOfferId:0 url:offer.thumbnail.highResolutionURLString completion:^(UIImage *image) {
+        [[FMImageKeeper sharedInstance] downloadImageForOfferId:offer.offerId
+                                                            url:offer.thumbnail.highResolutionURLString
+                                                     completion:^(UIImage *image) {
         
             // whether the image was actually downloaded
             if (image) {

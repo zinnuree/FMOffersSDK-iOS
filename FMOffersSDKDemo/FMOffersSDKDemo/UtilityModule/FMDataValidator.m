@@ -51,7 +51,8 @@ NSString *const FMValidationErrorDomain = @"com.fyber.test.validationerror";
     }
     
     //TODO: other special kind of validations
-    // I do not know the validation rules yet
+    // I skip them here, but some of rules could be as follows -
+    // user id must be an standard _alphanumeric identifier as a single word
     
     return YES;
 }
@@ -90,7 +91,9 @@ NSString *const FMValidationErrorDomain = @"com.fyber.test.validationerror";
     }
     
     //TODO: other special kind of validations
-    // I do not know the validation rules yet
+    // I skip them here, but some of rules could be as follows -
+    // api key must be a lowercase hexadecimal value as a single word
+    // rather than minimum 40 characters, it should be exactly 40 characters I think
     
     return YES;
 }
@@ -129,7 +132,9 @@ NSString *const FMValidationErrorDomain = @"com.fyber.test.validationerror";
     }
     
     //TODO: other special kind of validations
-    // I do not know the validation rules yet
+    // I skip them here, but some of rules could be as follows -
+    // app id is decimal integer
+    // leading 0's has no effect as it is converted to an integer
     
     return YES;
 }

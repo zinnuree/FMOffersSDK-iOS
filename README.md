@@ -8,6 +8,11 @@ The demo app is mainly the GUI section as suggested in the challenge description
 
 
 ==============================================
+Language: Objective-C
+
+Notes: Swift is not used, because it is still changing and fells you in trouble if team members use different version of Xcode that comes with different version of swift.
+
+==============================================
 BUILD REQUIREMENTS:
 	
 Xcode 8.0

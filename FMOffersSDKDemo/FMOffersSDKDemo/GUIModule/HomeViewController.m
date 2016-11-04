@@ -31,7 +31,10 @@
     [super viewDidLoad];
     
     self.navigationItem.title = @"FMOffers SDK Demo";
-
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backItem;
+    
     // assign prepopulated data
     self.uidField.text = @"spiderman";
     self.apiKeyField.text = @"1c915e3b5d42d05136185030892fbb846c278927";
