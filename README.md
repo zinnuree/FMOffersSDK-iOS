@@ -1,10 +1,10 @@
 # FMOffersSDK-iOS
-Fyber Mobile Offers SDK as a technical challenge assignment. Along with a simple application to demonstrate SDK.
+Fyber Mobile Offers SDK as a technical challenge assignment project. Along with a simple application to demonstrate the SDK.
 
 
-The SDK encapsulates the communication details with the Fyber Mobile Offers. It provides asynchronous calls to download the Offers.
+The SDK encapsulates the communication details with the Fyber Mobile Offers API. It provides API methods as asynchronous calls to download the Offers.
 
-The demo app is mainly the GUI section as suggested in the challenge description.
+The demo app contains mainly the User Interface, Data Validation and Presentation Logic features.
 
 
 ==============================================
